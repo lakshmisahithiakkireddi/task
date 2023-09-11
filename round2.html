@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            margin:100px;
+        }
+    </style>
+</head>
+<center>
+<body>
+    <h1>Rock Paper Scissors Game</h1>
+    <p>Choose: Rock, Paper, or Scissors</p>
+    <img src="https://nationaltoday.com/wp-content/uploads/2021/08/National-Pet-Rock-Day.jpg" id="rock" alt="Rock">
+    <img src="https://www.graficaobscura.com/fold/000.gif" id="paper" alt="Paper">
+    <img src="https://img.freepik.com/premium-vector/yellow-scissor_473272-240.jpg?w=2000" id="scissors" alt="Scissors">
+    <p id="result"></p>
+</body>
+
+    <script>
+        const userChoices = document.querySelectorAll('img');
+        const result = document.getElementById('result');
+
+        // Function to generate computer's choice
+        function computerPlay() {
+            const choices = ["Rock", "Paper", "Scissors"];
+            const randomChoice = Math.floor(Math.random() * 3);
+            return choices[randomChoice];
+        }
+
+        // Function to determine the winner
+        function playRound(playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            if (playerSelection === computerSelection) 
+            {
+
+                return "It's a tie!";
+            } 
+            else if (
+                (playerSelection === 'rock' && computerSelection === 'scissors') ||
+                (playerSelection === 'scissors' && computerSelection === 'paper') ||
+                (playerSelection === 'paper' && computerSelection === 'rock')
+            ) 
+            {
+                document.body.style.backgroundColor = 'green';
+                return `You win! ${playerSelection} beats ${computerSelection}`;
+
+            }
+             else {
+                document.body.style.backgroundColor = 'red';
+                return `You lose! ${computerSelection} beats ${playerSelection}`;
+            }
+        }
+
+        // Event listener for user's choice
+        userChoices.forEach((choice) => {
+            choice.addEventListener('click', function () {
+                const computerSelection = computerPlay();
+                const playerSelection = choice.id;
+                const roundResult = playRound(playerSelection, computerSelection);
+                result.textContent = roundResult;
+            });
+        });
+    </script>
+</body>
+</html>
